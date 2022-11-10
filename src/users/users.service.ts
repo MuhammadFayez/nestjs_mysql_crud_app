@@ -11,8 +11,7 @@ import { UsersDTO } from './users.dto';
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectRepository(UsersEntity)
-        private usersRepository: Repository<UsersEntity>,
+        @InjectRepository(UsersEntity) private usersRepository: Repository<UsersEntity>,
       ) {}
 
       async showAll() {

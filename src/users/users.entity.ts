@@ -3,21 +3,26 @@
 /* eslint-disable prettier/prettier */
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 import * as crypto from 'crypto';
+// import * as  bcrypt from 'bcrypt';
 @Entity('users')
 export class UsersEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @BeforeInsert()
   hashPassword() {
-    this.password = crypto.createHmac('sha256', this.password).digest('hex');
+     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
   @Column()
   password: string;
 }
