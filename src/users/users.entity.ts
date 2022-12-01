@@ -13,8 +13,23 @@ export class UsersEntity {
   @Column()
   name: string;
 
+  @Column()
+  username: string;
+
   @Column({ unique: true })
   email: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  company: string;
+
+  @Column()
+  phone: string;
+
+  @Column()
+  city: string;
 
   @BeforeInsert()
   hashPassword() {

@@ -6,19 +6,25 @@ import { Repository } from 'typeorm';
 
 import { UsersEntity } from './users.entity';
 import { UsersDTO } from './users.dto';
+import { Logger } from '@nestjs/common';
 
 
 @Injectable()
 export class UsersService {
+
+  logger: Logger;
     constructor(
         @InjectRepository(UsersEntity) private usersRepository: Repository<UsersEntity>,
-      ) {}
+      ) {
+        this.logger = new Logger();
+      }
 
       async showAll() {
         return await this.usersRepository.find();
       }
 
       async create(data: UsersDTO) {
+        this.logger.log('data ========> ', data);
         const user = this.usersRepository.create(data);
         await this.usersRepository.save(data);
         return user;
@@ -37,6 +43,8 @@ export class UsersService {
       }
 
       async update(id: number, data: Partial<UsersDTO>) {
+        this.logger.log('data ========> ', data);
+        this.logger.log('id ========> ',typeof id);
         await this.usersRepository.update({ id }, data);
         return await this.usersRepository.findOne({ 
           where: { 
